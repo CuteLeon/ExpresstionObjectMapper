@@ -11,25 +11,83 @@ namespace ExpresstionObjectMapper
         static void Main(string[] args)
         {
             const int count = 1000000;
-            SourceModel source = new SourceModel() { ID = Guid.NewGuid(), Name = "Source Model Instance" };
+            SourceModel source = new SourceModel()
+            {
+                ID = Guid.NewGuid(),
+                Name = "Source Model Instance",
+                Amount = 100_0000,
+                AuctionPrice = 110,
+                BiddingPrice = 90,
+                BuyPrice1 = 91,
+                BuyPrice2 = 92,
+                BuyPrice3 = 93,
+                BuyPrice4 = 94,
+                BuyPrice5 = 95,
+                BuyStrand1 = 1000,
+                BuyStrand2 = 2000,
+                BuyStrand3 = 3000,
+                BuyStrand4 = 4000,
+                BuyStrand5 = 5000,
+                ClosingPriceYesterday = 95,
+                Count = 10000,
+                CurrentPrice = 100,
+                DayHighPrice = 110,
+                DayLowPrice = 90,
+                OpeningPriceToday = 105,
+                SellPrice1 = 115,
+                SellPrice2 = 114,
+                SellPrice3 = 113,
+                SellPrice4 = 112,
+                SellPrice5 = 111,
+                SellStrand1 = 1000,
+                SellStrand2 = 2000,
+                SellStrand3 = 3000,
+                SellStrand4 = 4000,
+                SellStrand5 = 5000,
+            };
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
             for (int i = 0; i < count; i++)
             {
-                _ = new SourceModel() { ID = source.ID, Name = source.Name };
+                _ = new SourceModel()
+                {
+                    ID = source.ID,
+                    Name = source.Name,
+                    Amount = source.Amount,
+                    AuctionPrice = source.AuctionPrice,
+                    BiddingPrice = source.BiddingPrice,
+                    BuyPrice1 = source.BuyPrice1,
+                    BuyPrice2 = source.BuyPrice2,
+                    BuyPrice3 = source.BuyPrice3,
+                    BuyPrice4 = source.BuyPrice4,
+                    BuyPrice5 = source.BuyPrice5,
+                    BuyStrand1 = source.BuyStrand1,
+                    BuyStrand2 = source.BuyStrand2,
+                    BuyStrand3 = source.BuyStrand3,
+                    BuyStrand4 = source.BuyStrand4,
+                    BuyStrand5 = source.BuyStrand5,
+                    ClosingPriceYesterday = source.ClosingPriceYesterday,
+                    Count = source.Count,
+                    CurrentPrice = source.CurrentPrice,
+                    DayHighPrice = source.DayHighPrice,
+                    DayLowPrice = source.DayLowPrice,
+                    OpeningPriceToday = source.OpeningPriceToday,
+                    SellPrice1 = source.SellPrice1,
+                    SellPrice2 = source.SellPrice2,
+                    SellPrice3 = source.SellPrice3,
+                    SellPrice4 = source.SellPrice4,
+                    SellPrice5 = source.SellPrice5,
+                    SellStrand1 = source.SellStrand1,
+                    SellStrand2 = source.SellStrand2,
+                    SellStrand3 = source.SellStrand3,
+                    SellStrand4 = source.SellStrand4,
+                    SellStrand5 = source.SellStrand5,
+                };
             }
             stopwatch.Stop();
             Helper.WriteLine($"手写复制代码-克隆耗时：{stopwatch.ElapsedMilliseconds.ToString("N0")} ms");
-
-            stopwatch.Restart();
-            for (int i = 0; i < count; i++)
-            {
-                _ = ReflectionCloneExtension.Clone(source);
-            }
-            stopwatch.Stop();
-            Helper.WriteLine($"自动反射属性-克隆耗时：{stopwatch.ElapsedMilliseconds.ToString("N0")} ms");
 
             stopwatch.Restart();
             Expression<Func<SourceModel, SourceModel>> expression = (q => new SourceModel()
@@ -89,6 +147,14 @@ namespace ExpresstionObjectMapper
             }
             stopwatch.Stop();
             Helper.WriteLine($"泛型表达式树-克隆耗时：{stopwatch.ElapsedMilliseconds.ToString("N0")} ms");
+
+            stopwatch.Restart();
+            for (int i = 0; i < count; i++)
+            {
+                _ = ReflectionCloneExtension.Clone(source);
+            }
+            stopwatch.Stop();
+            Helper.WriteLine($"自动反射属性-克隆耗时：{stopwatch.ElapsedMilliseconds.ToString("N0")} ms");
 
             Console.Read();
         }
